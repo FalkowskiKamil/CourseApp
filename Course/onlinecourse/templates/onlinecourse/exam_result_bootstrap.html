@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <div class="navbar-header">
+              <a class="navbar-brand" href="{% url 'onlinecourse:index' %}">Home</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            {% if user.is_authenticated %}
+            <li>
+                <a class="btn btn-link" href="#">{{ user.first_name }}({{ user.username }})</a>
+                <a class="btn btn-link" href="{% url 'onlinecourse:logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <li>
+                <form class="form-inline" action="{% url 'onlinecourse:login' %}" method="post">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Username" name="username" >
+                        <input type="password" class="form-control" placeholder="Username" name="psw" >
+                        <button class="btn btn-primary" type="submit">Login</button>
+                        <a class="btn btn-link" href="{% url 'onlinecourse:registration' %}">Sign Up</a>
+                    </div>
+                </form>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    {% if total_score >= passing_score %}
+        <div class="alert alert-success">
+            <strong>Congratulations! You passed the exam.</strong>
+        </div>
+    {% else %}
+        <div class="alert alert-danger">
+            <strong>Sorry, you failed the exam.</strong>
+        </div>
+    {% endif %}
+    
+    <div class="card-columns-vertical mt-1">
+        <h5 class="">Exam results</h5>
+        {% for question_id, result in question_results.items %}
+            <div class="card mb-2">
+                <div class="card-header">
+                    <strong>Question: {{ result.question }}</strong>
+                </div>
+                <div class="card-body">
+                    {% if result.is_correct %}
+                    <div class="alert alert-success">
+                        <strong>Correct!</strong>
+                    </div>
+                    {% else %}
+                        <div class="alert alert-danger">
+                            <strong>Incorrect.</strong>
+                        </div>
+                    {% endif %}
+                    
+                    {%for answer in result.choice_all%}
+                    <ul>
+                        <li>{%if answer == result.correct_choice%}<strong>{{answer}}</strong>{%else%}
+                            {{answer}}
+                            {%endif%}
+                            {% if answer == result.choicen %}
+                            <span class="badge badge-primary">selected</span>
+                            {% endif %}
+                        </li>
+                    </ul>
+                    {%endfor%}
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="text-center">
+            <p class="text-center">
+                <form action="{% url 'onlinecourse:enroll' course %}" method="post">
+                    {% csrf_token %}
+                    <input class="btn btn-primary"  type="submit" value="Re-test">
+                </form>
+                <strong>Total score: {{ total_score }} / {{ max_point }}</strong>
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
