@@ -28,8 +28,7 @@ class CourseListView(generic.ListView):
             if user.is_authenticated:
                 course.is_enrolled = check_if_enrolled(user, course)
         return courses
-
-
+    
 class CourseDetailView(generic.DetailView):
     model = Course
     template_name = 'onlinecourse/course_detail_bootstrap.html'
@@ -45,6 +44,14 @@ def enroll(request, course_id):
         course.total_enrollment += 1
         course.save()
     return HttpResponseRedirect(reverse(viewname='onlinecourse:course_details', args=(course.id,)))
+
+def Check_exam(request, course_id):
+    course = Course.objects.get(id=course_id)
+    return HttpResponseRedirect(reverse(viewname='onlinecourse:exam', args=(course.id,)))
+
+class ExamDetailView(generic.DetailView):
+    model = Course
+    template_name = 'onlinecourse/exam.html'
 
 def submit(request, course_id):
     user = request.user

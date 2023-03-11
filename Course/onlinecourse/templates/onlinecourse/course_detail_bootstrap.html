@@ -1,6 +1,6 @@
 {% extends "onlinecourse/index.html" %}
 {% block content %}
-<div class="container-fluid">
+    <div class="container-fluid">
         <h2>{{ course.name }}</h2>
         <div class="card-columns-vertical">
             {% for lesson in course.lesson_set.all %}
@@ -11,31 +11,12 @@
             {% endfor %}
         </div>
         {% if user.is_authenticated %}
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Show Quiz</button>
-        <div class="collapse multi-collapse" id="multiCollapseExample2">
-            <form id="questionform" action="{% url 'onlinecourse:submit' course_id=course.id %}" method="post">
-                <div class="card mt-1">
-                    {% for question in course.questions.all %}      
-                        <div class="card-header"><h5>{{ question.question_text}}</h5>Point for question: {{question.grade_point}}</div>
-                        {% csrf_token %}
-                        <div class="card-body">
-                            <div class="form-group">
-                            {% for choice in question.choices.all %}
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input type="radio" name="choice_{{question.id}}"
-                                        class="form-check-input" id="{{choice.id}}"
-                                        value="{{choice.id}}">{{ choice.choice_text }}
-                                    </label>
-                                </div>
-                            {% endfor %}
-                            </div>
-                        </div>
-                    {% endfor %}
-                    <input class="btn btn-success btn-block" type="submit" value="Submit">
-                </div>
-            </form>
-        </div>
+        <form action="{% url 'onlinecourse:Check_exam' course.id %}" method="post">
+            {% csrf_token %}
+            <input class="btn btn-primary"  type="submit" value="Exam">
+        </form>
         {% endif %}
     </div>
+
+
 {% endblock %}

@@ -47,7 +47,7 @@
 
         <div class="text-center">
             <p class="text-center">
-                <form action="{% url 'onlinecourse:enroll' course %}" method="post">
+                <form action="{% url 'onlinecourse:Check_exam' course %}" method="post">
                     {% csrf_token %}
                     <input class="btn btn-primary"  type="submit" value="Re-test">
                 </form>
