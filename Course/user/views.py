@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth import login, logout, authenticate
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 import logging
 logger = logging.getLogger(__name__)

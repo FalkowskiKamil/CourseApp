@@ -1,12 +1,13 @@
 {% extends "onlinecourse/index.html" %}
 {% block content %}
     {% if course_list %}
+    
         <div class="container">
+            {% for course in course_list %}
             <div class="card-deck">
-                {% for course in course_list %}
                          <div class="card" style="width: 36rem;">
-                            <img class="card-img-left" src="{{ course.image.url }}"  alt="Course image">
 
+                            <img class="card-title" {% if course.image %} src="{{ course.image.url }}" {% else %} src="https://www.dreamhost.com/blog/wp-content/uploads/2017/10/online_course-750x375.jpg" {% endif %} alt="Course image">
                           <div class="card-body bg-light">
                               <h5 class="card-title">{{ course.name }}, <span class="text-success">
                                   {{ course.total_enrollment}} enrolled</span></h5>
@@ -17,8 +18,9 @@
                             </form>
                           </div>
                         </div>
-                {% endfor %}
             </div>
+            
+            {% endfor %}
         </div>
     {% else %}
         <p>No courses are available.</p>

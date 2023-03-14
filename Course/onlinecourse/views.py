@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from .models import Course, Enrollment, Question, Choice, Submission
+from .models import Course, Enrollment, Choice, Submission
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.views import generic
@@ -27,6 +27,7 @@ class CourseListView(generic.ListView):
         for course in courses:
             if user.is_authenticated:
                 course.is_enrolled = check_if_enrolled(user, course)
+            
         return courses
     
 class CourseDetailView(generic.DetailView):

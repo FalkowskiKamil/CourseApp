@@ -11,10 +11,12 @@
             {% endfor %}
         </div>
         {% if user.is_authenticated %}
+        {% if course.questions.all %}
         <form action="{% url 'onlinecourse:Check_exam' course.id %}" method="post">
             {% csrf_token %}
             <input class="btn btn-primary"  type="submit" value="Exam">
         </form>
+        {% endif %}
         {% endif %}
     </div>
 

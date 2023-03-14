@@ -67,8 +67,7 @@ class Lesson(models.Model):
     content = models.TextField()
 
     def __str__(self):
-        return "Title:" + self.title + \
-                "From Course: " + self.course
+        return "Lesson Subject: " + self.title
 
 class Enrollment(models.Model):
     AUDIT = 'audit'
@@ -96,16 +95,16 @@ class Question(models.Model):
         return selected_choices.count() == correct_choices.count()
     
     def __str__(self):
-        return self.question_text + ", " + \
-                "Point for question: " + self.grade_point
-    
+        return "Question to course: " + self.course.name + ", "+ \
+                "Question content: " + self.question_text
+   
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, default=None, null=True, related_name='choices')
     choice_text = models.CharField(max_length=500, default="answer")
     is_correct = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.choice_text
+        return "Answer: " + self.choice_text
 
 class Submission(models.Model):
     enrollment = models.ForeignKey(Enrollment, on_delete=models.CASCADE, default=None)
