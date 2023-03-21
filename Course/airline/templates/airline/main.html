@@ -1,0 +1,36 @@
+{% extends "onlinecourse/index.html" %}
+
+{% block content %}
+<table class="table">
+<thead>
+    <tr>
+        <th>Flight number: </th>
+        <th>Start: </th>
+        <th>Destination: </th>
+        <th>Date: </th>
+        <th>Passager: </th>
+    </tr>
+</thead>
+<tbody>
+    {% if flight %}
+    {% for fli in flight %}
+    <tr>
+        <td>{{fli.id}}</td>
+        <td>{{fli.start}}</td>
+        <td>{{fli.destination}}</td>
+        <td>{{fli.date}}</td>
+        {% if fli.passengers.all %}
+            <td>{% for passagers in fli.passengers.all %} <a href="/airline/passager/{{passagers.id}}">{{passagers}}</a>, {% endfor %}</td>
+        {% else %}
+            <td>No Passagers</td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+    {% else %}
+    <tr>
+        <td>Sorry, currently no flight data are avaible</td>
+    </tr>
+    {% endif %}
+    </tbody>
+    </table>
+{% endblock %}

@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 INSTALLED_APPS = [
+    'airline',
     'user.apps',
     'onlinecourse.apps.OnlinecourseConfig',
     'django.contrib.admin',
