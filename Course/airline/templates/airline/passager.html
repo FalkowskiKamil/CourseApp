@@ -1,4 +1,4 @@
-{% extends "onlinecourse/index.html" %}
+{% extends "airline/index.html" %}
 {% block content %}
 
 <div class="table">
@@ -18,9 +18,9 @@
         {% if passager.flights.all %}
             {% for fli in passager.flights.all %}
             <tr>
-                <td>{{fli.id}}</td>
-                <td>{{fli.start}}</td>
-                <td>{{fli.destination}}</td>
+                <td><a href="/airline/flight/{{fli.id}}">{{fli.id}}</td></a>
+                <td><a href="/airline/airport/{{fli.start.id}}">{{fli.start}}</td></a>
+                <td><a href="/airline/airport/{{fli.destination.id}}">{{fli.destination}}</td></a>
                 <td>{{fli.date}}</td>
             </tr>
             {% endfor %}

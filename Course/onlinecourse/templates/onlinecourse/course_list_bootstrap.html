@@ -7,7 +7,7 @@
             <div class="card-deck">
                          <div class="card" style="width: 36rem;">
 
-                            <img class="card-title" {% if course.image %} src="{{ course.image.url }}" {% else %} src="https://www.dreamhost.com/blog/wp-content/uploads/2017/10/online_course-750x375.jpg" {% endif %} alt="Course image">
+                            <img class="card-title" {% if course.image %} src="{{ course.image.url }}" {% else %} src="/static/onlinecourse/course.png" alt="Widzę i nie wiem" {% endif %} alt="Course image">
                           <div class="card-body bg-light">
                               <h5 class="card-title">{{ course.name }}, <span class="text-success">
                                   {{ course.total_enrollment}} enrolled</span></h5>
