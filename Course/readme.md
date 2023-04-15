@@ -1,3 +1,1 @@
-This app is made for making course.
-Every course is devided by lesson and have final exam.
-App is made on Django.
+This application is designed to facilitate the creation of courses, which are organized into individual lessons and culminate in a final exam. It has been developed using the Django web framework.
